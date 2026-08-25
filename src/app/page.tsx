@@ -127,7 +127,7 @@ export default function Home() {
       <footer className="absolute bottom-0 left-0 right-0 py-4 text-center text-[#737373] text-sm z-10">
         © 2026 Carlos Daniel Pérego -{' '}
         <a 
-          href="https://freelancer-inicio.vercel.app/" 
+          href="https://danielperego.vercel.app/" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-[#4a90d9] hover:text-[#6ab0ff] transition-colors"
