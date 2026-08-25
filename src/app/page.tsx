@@ -1,11 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 export default function Home() {
   const [text, setText] = useState('');
   const [qrGenerated, setQrGenerated] = useState(false);
+  const [favicon, setFavicon] = useState<string | null>(null);
+  const [isUrl, setIsUrl] = useState(false);
+
+  useEffect(() => {
+    const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]+(\/.*)?$/;
+    const isUrlValid = urlPattern.test(text.trim());
+    setIsUrl(isUrlValid);
+
+    if (isUrlValid && text.trim()) {
+      let url = text.trim();
+      if (!url.startsWith('http')) {
+        url = 'https://' + url;
+      }
+      // Use Google's favicon service
+      const faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`;
+      setFavicon(faviconUrl);
+    } else {
+      setFavicon(null);
+    }
+  }, [text]);
 
   const handleGenerate = () => {
     if (text.trim()) {
@@ -82,15 +102,18 @@ export default function Home() {
                   level="H"
                   includeMargin={true}
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="bg-[#0a0a0a] p-2 rounded-lg">
-                    <img
-                      src="/logo.png"
-                      alt="Logo"
-                      className="w-10 h-10 object-contain"
-                    />
+                {isUrl && favicon && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-white p-1 rounded">
+                      <img
+                        src={favicon}
+                        alt="Favicon"
+                        className="w-10 h-10"
+                        onError={() => setFavicon(null)}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <button
                 onClick={handleDownload}
