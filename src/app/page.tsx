@@ -37,8 +37,30 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center p-4 relative overflow-hidden">
+      {/* Fondo sutil */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 opacity-5"
+        style={{
+          backgroundImage: "url(/favicon.svg)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "min(80vw, 800px)",
+        }}
+      />
+      
+      {/* Marca de agua */}
+      <div 
+        className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "url(/favicon.svg)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "min(50vw, 500px)",
+        }}
+      />
+
+      <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-[#ededed] mb-2">
             QR Creator
@@ -60,14 +82,14 @@ export default function Home() {
                 setQrGenerated(false);
               }}
               placeholder="https://ejemplo.com"
-              className="w-full h-32 px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-xl text-[#ededed] placeholder-[#737373] focus:outline-none focus:ring-2 focus:ring-[#e85d04] focus:border-transparent resize-none"
+              className="w-full h-32 px-4 py-3 bg-[#0a0a0a] border border-[#262626] rounded-xl text-[#ededed] placeholder-[#737373] focus:outline-none focus:ring-2 focus:ring-[#4a90d9] focus:border-transparent resize-none"
             />
           </div>
 
           <button
             onClick={handleGenerate}
             disabled={!text.trim()}
-            className="w-full py-3 px-6 bg-[#e85d04] hover:bg-[#d45203] disabled:bg-[#262626] disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full py-3 px-6 bg-[#4a90d9] hover:bg-[#3a7bc8] disabled:bg-[#262626] disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Generar QR
           </button>
@@ -100,6 +122,19 @@ export default function Home() {
           Generá y descargá códigos QR gratis
         </p>
       </div>
+
+      {/* Footer */}
+      <footer className="absolute bottom-0 left-0 right-0 py-4 text-center text-[#737373] text-sm z-10">
+        © 2026 Carlos Daniel Pérego -{' '}
+        <a 
+          href="https://freelancer-inicio.vercel.app/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-[#4a90d9] hover:text-[#6ab0ff] transition-colors"
+        >
+          DesarrolloWeb-pdl
+        </a>
+      </footer>
     </div>
   );
 }
