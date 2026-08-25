@@ -14,7 +14,7 @@ export default function Home() {
   };
 
   const handleDownload = () => {
-    const svg = document.getElementById('qr-code') as SVGElement;
+    const svg = document.getElementById('qr-code') as unknown as SVGElement;
     if (!svg) return;
 
     const svgData = new XMLSerializer().serializeToString(svg);
